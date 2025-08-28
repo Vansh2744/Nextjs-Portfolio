@@ -1,17 +1,21 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
+// Ensure API key is being read
 const resend = new Resend(process.env.RESEND_API_KEY);
-const fromEmail = process.env.FROM_EMAIL;
 
-export async function POST(req, res) {
-  const { email, subject, message } = await req.json();
-  console.log(email, subject, message);
+export async function POST(req) {
   try {
+    const { email, subject, message } = await req.json();
+
+    if (!email || !subject || !message) {
+      return NextResponse.json({ error: "Missing fields" }, { status: 400 });
+    }
+
     const data = await resend.emails.send({
-      from: fromEmail,
-      to: [fromEmail, email],
-      subject: subject,
+      from: `${email} || <onboarding@resend.dev>`,
+      to: ["vanshchoudhary2744@gmail.com"],
+      subject,
       react: (
         <>
           <h1>{subject}</h1>
@@ -21,8 +25,13 @@ export async function POST(req, res) {
         </>
       ),
     });
-    return NextResponse.json(data);
+
+    return NextResponse.json({ success: true, data });
   } catch (error) {
-    return NextResponse.json({ error });
+    console.error("Email error:", error);
+    return NextResponse.json(
+      { error: "Failed to send email" },
+      { status: 500 }
+    );
   }
 }
