@@ -22,6 +22,16 @@ const projectsData = [
     gitUrl: "https://github.com/Vansh2744/Ai-Gallery",
     previewUrl: "https://ai-gallery-frontend.onrender.com",
   },
+  {
+    id: 3,
+    title: "Note Flow",
+    description:
+      "NoteFlow is an AI-powered full-stack web application designed to enhance student productivity through intelligent note generation, conversational learning, and automated quiz assessment. The platform leverages Retrieval-Augmented Generation (RAG) to allow users to interact with study materials derived from multiple sources such as topics, PDFs, and YouTube videos.",
+    image: "/images/project3.png",
+    gitUrl:
+      "https://github.com/Vansh2744/ai-powered-note-making-learning-platform.git",
+    previewUrl: "",
+  },
 ];
 
 const ProjectsSection = () => {
